@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FlatList, RefreshControl, StyleSheet, Text, View} from 'react-native';
+import { FlatList, RefreshControl, SectionList, StyleSheet, Text, View} from 'react-native';
 import { ScrollView } from 'react-native';
 
 export default function App() {
@@ -18,6 +18,25 @@ export default function App() {
     { name: 'name 8'},
   ]);
 
+  const DATA = [
+    {
+      title: 'Title 1',
+      data: ['Item 1-1', 'Item 1-2', 'Item 1-3'],
+    },
+    {
+      title: 'Title 2',
+      data: ['Item 2-1', 'Item 2-2', 'Item 2-3'],
+    },
+    {
+      title: 'Title 3',
+      data: ['Item 3-1'],
+    },
+    {
+      title: 'Title 4',
+      data: ['Item 4-1', 'Item 4-2'],
+    },
+  ]
+
   const [Refreshing, setRefreshing] = useState(false)
 
   const onRefresh = () => {
@@ -27,22 +46,36 @@ export default function App() {
   }
 
   return (
-    <FlatList
-       keyExtractor={( item, index ) => index.toString()}
-       data ={Items}
-       renderItem={ ({item}) => (
-        <View style={styles.item}>
-        <Text style={styles.text}> {item.name}</Text>
+    <SectionList 
+    keyExtractor={( item, index ) => index.toString()}
+    sections={DATA}
+    renderItem={ ({item}) => (
+    <View style={styles.item}>
+        <Text style={styles.text}> {item}</Text>
+    </View>
+     )}
+     renderSectionHeader={({section}) => (
+      <View style={styles.item}>
+         <Text style={styles.text}> {section.title}</Text>
       </View>
-       )}
-       refreshControl={
-        <RefreshControl
-          refreshing={Refreshing}
-          onRefresh={onRefresh}
-          colors={['red']}
-        />
-       }
+     )}
     />
+    // <FlatList
+      //  keyExtractor={( item, index ) => index.toString()}
+    //    data ={Items}
+      //  renderItem={ ({item}) => (
+      //   <View style={styles.item}>
+      //   <Text style={styles.text}> {item.name}</Text>
+      // </View>
+      //  )}
+    //    refreshControl={
+    //     <RefreshControl
+    //       refreshing={Refreshing}
+    //       onRefresh={onRefresh}
+    //       colors={['red']}
+    //     />
+    //    }
+    // />
   );
 }
 
