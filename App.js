@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {  Button, StyleSheet, Text, TextInput, View} from 'react-native';
+import {  Button, Pressable, StyleSheet, Text, TextInput, TouchableOpacity, View} from 'react-native';
 
 export default function App() {
   const [name, SetName ] = useState('');
@@ -20,10 +20,28 @@ export default function App() {
     keyboardType='numeric'
     secureTextEntry
       />
-      <Button
-        title= {submitted ? 'clear' : 'Submit'}
-        onPress={onPressHandler}
-       />
+       {/* <TouchableOpacity
+       onPress={onPressHandler}
+       activeOpacity={0.2}
+       style={styles.button}
+       >
+         <Text style={styles.text}>
+         {submitted ? 'clear' : 'Submit'}
+         </Text>
+       </TouchableOpacity> */}
+       <Pressable 
+           onPress={onPressHandler}
+           delayLongPress={2000}
+           hitSlop={{ top: 10, bottom: 50 }}
+           android_ripple={{color: 'blue'}}
+           style={({ pressed }) => [
+             { backgroundColor: pressed ? '#ddd' : 'red'}
+           ]}
+         >
+       <Text style={styles.text}>
+         {submitted ? 'clear' : 'Submit'}
+         </Text>
+       </Pressable>
        {
          submitted ? 
          <Text style={styles.text}> you are registered as: {name}</Text>
@@ -54,4 +72,7 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
     margin: 10,
   },
+  button:{
+    backgroundColor: 'green'
+  }
 });
