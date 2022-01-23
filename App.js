@@ -1,34 +1,40 @@
 import React, { useState } from 'react';
-import { RefreshControl, StyleSheet, Text, View} from 'react-native';
+import { FlatList, RefreshControl, StyleSheet, Text, View} from 'react-native';
 import { ScrollView } from 'react-native';
 
 export default function App() {
   const [Items, setItems] = useState([
-    {key:1, item: 'Item 1'},
-    {key:2, item: 'Item 2'},
-    {key:3, item: 'Item 3'},
-    {key:4, item: 'Item 4'},
-    {key:5, item: 'Item 5'},
-    {key:6, item: 'Item 6'},
-    {key:7, item: 'Item 7'},
-    {key:8, item: 'Item 8'},
-    {key:9, item: 'Item 8'},
-    {key:10, item: 'Item 8'},
-    {key:11, item: 'Item 8'},
-    {key:12, item: 'Item 8'},
+    { name: 'name 1'},
+    { name: 'name 2'},
+    { name: 'name 3'},
+    { name: 'name 4'},
+    { name: 'name 5'},
+    { name: 'name 6'},
+    { name: 'name 7'},
+    { name: 'name 8'},
+    { name: 'name 8'},
+    { name: 'name 8'},
+    { name: 'name 8'},
+    { name: 'name 8'},
   ]);
 
   const [Refreshing, setRefreshing] = useState(false)
 
   const onRefresh = () => {
     setRefreshing(true);
-    setItems([...Items, {key: 69, item: 'Item 69'}])
+    setItems([...Items, {key: 69, name: 'Item 69'}])
     setRefreshing(false)
   }
 
   return (
-      <ScrollView
-       style={styles.body}
+    <FlatList
+       keyExtractor={( item, index ) => index.toString()}
+       data ={Items}
+       renderItem={ ({item}) => (
+        <View style={styles.item}>
+        <Text style={styles.text}> {item.name}</Text>
+      </View>
+       )}
        refreshControl={
         <RefreshControl
           refreshing={Refreshing}
@@ -36,17 +42,7 @@ export default function App() {
           colors={['red']}
         />
        }
-       >
-      {
-        Items.map((object)=> {
-          return (
-            <View style={styles.item} key={object.key}>
-            <Text style={styles.text}> {object.item}</Text>
-          </View>
-          )
-        })
-      }
-     </ScrollView>
+    />
   );
 }
 
