@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
-import {  StyleSheet, Text, TextInput, View} from 'react-native';
-import { ScrollView } from 'react-native';
+import {  Button, StyleSheet, Text, TextInput, View} from 'react-native';
 
 export default function App() {
   const [name, SetName ] = useState('');
+  const [submitted, SetSubmitted ] = useState(false);
+  const onPressHandler = () => {
+    SetSubmitted (!submitted)
+  }
   return (
    <View style={styles.body}>
      <Text style={styles.text}>Please write here:</Text>
@@ -13,11 +16,21 @@ export default function App() {
      placeholder='e.g. jhon'
      onChangeText={(value) => SetName(value)
     }
-    // maxLength={5}
-    // keyboardType='numeric'
+    maxLength={5}
+    keyboardType='numeric'
     secureTextEntry
       />
-     <Text style={styles.text}> your name is: {name}</Text>
+      <Button
+        title= {submitted ? 'clear' : 'Submit'}
+        onPress={onPressHandler}
+       />
+       {
+         submitted ? 
+         <Text style={styles.text}> you are registered as: {name}</Text>
+         :
+         null
+       }
+
    </View>
   );
 }
