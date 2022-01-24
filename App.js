@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {  Alert, Button, Modal, Pressable, StyleSheet, Text, TextInput, ToastAndroid, View} from 'react-native';
+import {  Alert, Button, Image, Modal, Pressable, StyleSheet, Text, TextInput, ToastAndroid, View} from 'react-native';
 
 export default function App() {
   const [name, SetName ] = useState('');
@@ -54,9 +54,19 @@ export default function App() {
        </Pressable>
        {
          submitted ? 
+         <View>
          <Text style={styles.text}> you are registered as: {name}</Text>
+       
+         <Image
+          style={styles.image}
+          
+          resizeMode='stretch' />
+         </View>
          :
-         null
+         <Image
+          style={styles.image}
+          source={{uri: 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.kindpng.com%2Fimgv%2FTJTbRwT_done-icon-white-png-transparent-png%2F&psig=AOvVaw1pES52Kh4S1JCNK6V0qCJR&ust=1643089015753000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCLCJ59vVyfUCFQAAAAAdAAAAABAD'}}
+          resizeMode='stretch' />
        }
 
    </View>
@@ -96,5 +106,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#00000099',
+  },
+  image: {
+    height: 100,
+    width: 100,
+    justifyContent: 'center',
   }
 });
