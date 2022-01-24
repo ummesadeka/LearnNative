@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {  Alert, Button, Pressable, StyleSheet, Text, TextInput, View} from 'react-native';
+import {  Alert, Button, Pressable, StyleSheet, Text, TextInput, ToastAndroid, View} from 'react-native';
 
 export default function App() {
   const [name, SetName ] = useState('');
@@ -8,20 +8,10 @@ export default function App() {
     if (name.length > 3) {
       SetSubmitted (!submitted);
     } else {
-      Alert.alert('Warning', 'The name must be longer than 3 characters', [
-        {
-          text:'LATER',
-          onPress: () => console.warn('LATER Pressed')
-        },
-        {
-          text:'CANCEL',
-          onPress: () => console.warn('CANCEL Pressed')
-        },
-        {
-          text:'OK',
-          onPress: () => console.warn('Ok Pressed')
-        }
-      ], { cancelable: true, onDismiss: () => console.warn('dismiss')})
+    ToastAndroid.show(
+      'The name must be longer than 3 characters',
+      ToastAndroid.LONG,
+    )
     }
   }
   return (
