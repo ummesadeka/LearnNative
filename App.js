@@ -1,21 +1,32 @@
 import React, { useState } from 'react';
-import {  Alert, Button, Pressable, StyleSheet, Text, TextInput, ToastAndroid, View} from 'react-native';
+import {  Alert, Button, Modal, Pressable, StyleSheet, Text, TextInput, ToastAndroid, View} from 'react-native';
 
 export default function App() {
   const [name, SetName ] = useState('');
   const [submitted, SetSubmitted ] = useState(false);
+  const [showWarning, SetShowWarning] = useState(false);
   const onPressHandler = () => {
     if (name.length > 3) {
       SetSubmitted (!submitted);
     } else {
-    ToastAndroid.show(
-      'The name must be longer than 3 characters',
-      ToastAndroid.LONG,
-    )
+      SetShowWarning(true)
     }
   }
   return (
    <View style={styles.body}>
+     <Modal
+     visible={showWarning}
+     onRequestClose={() => 
+      SetShowWarning(false)
+    }
+    animationType='slide'
+     >
+       <View style={styles.centered_view}>
+         <View style={styles.warning_modal}>
+             <Text>The name must be longer  than 3 characters</Text>
+          </View>
+       </View>
+     </Modal>
      <Text style={styles.text}>Please write here:</Text>
      <TextInput 
      multiline
@@ -73,5 +84,17 @@ const styles = StyleSheet.create({
   },
   button:{
     backgroundColor: 'green'
+  },
+  warning_modal: {
+    width: 300,
+    height: 300,
+    backgroundColor: '#999',
+    borderRadius: 20,
+  },
+  centered_view: {
+    flex:1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#00000099',
   }
 });
